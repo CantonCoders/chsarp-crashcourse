@@ -6,7 +6,7 @@ namespace PacManKata
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Pac Man!");
         }
     }
 }

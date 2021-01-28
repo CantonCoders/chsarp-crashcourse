@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using PacManKata;
 
 namespace PacManKataTest
 {
@@ -12,7 +13,6 @@ namespace PacManKataTest
         [Test]
         public void Test1()
         {
-            Assert.Pass();
         }
     }
 }

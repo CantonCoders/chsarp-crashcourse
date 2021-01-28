@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacManKata", "PacManKata\PacManKata.csproj", "{29F76622-83CF-4E27-83C8-6180B3BE162F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacManKataTest", "PacManKataTest\PacManKataTest.csproj", "{4616211E-A0A2-4402-AA9D-77710D7D9CD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{29F76622-83CF-4E27-83C8-6180B3BE162F} = {29F76622-83CF-4E27-83C8-6180B3BE162F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
