@@ -3,6 +3,8 @@
     public enum PacManFacingEnum
     {
         Right,
-        Up
+        Up,
+        Left,
+        Down
     }
 }

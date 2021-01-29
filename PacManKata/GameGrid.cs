@@ -39,9 +39,17 @@ namespace PacManKata
             {
                 location.Item1++;
             }
-            else
+            else if (pacManFacing == PacManFacingEnum.Up)
             {
                 location.Item2++;
+            }
+            else if (pacManFacing == PacManFacingEnum.Left)
+            {
+                location.Item1--;
+            }
+            else
+            {
+                location.Item2--;
             }
         }
 

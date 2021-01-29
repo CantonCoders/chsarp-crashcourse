@@ -68,5 +68,25 @@ namespace PacManKataTest
             Assert.AreEqual((10, 11), gameGrid.GetPacManLocation());
         }
 
+        [Test]
+        public void PacManMovesInLeftDirection()
+        {
+            gameGrid.ChangePacManFacingTo(PacManFacingEnum.Left);
+            Assert.AreEqual(PacManFacingEnum.Left, gameGrid.WhereIsPacManFacing());
+
+            gameGrid.Tick();
+            Assert.AreEqual((9, 10), gameGrid.GetPacManLocation());
+        }
+
+        [Test]
+        public void PacManMovesInDownDirection()
+        {
+            gameGrid.ChangePacManFacingTo(PacManFacingEnum.Down);
+            Assert.AreEqual(PacManFacingEnum.Down, gameGrid.WhereIsPacManFacing());
+
+            gameGrid.Tick();
+            Assert.AreEqual((10, 9), gameGrid.GetPacManLocation());
+        }
+
     }
 }
