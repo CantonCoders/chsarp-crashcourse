@@ -11,8 +11,12 @@ namespace PacManKataTest
         }
 
         [Test]
-        public void Test1()
+        public void InitializeGameGrid()
         {
+            var gameGrid = new GameGrid();
+
+            Assert.AreEqual(20, gameGrid.Width);
+            Assert.AreEqual(20, gameGrid.Height);
         }
     }
 }
