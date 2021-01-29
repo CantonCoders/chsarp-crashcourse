@@ -39,13 +39,21 @@ namespace PacManKataTest
         }
     }
 
-    public class PacManTest
+    public class WhenGameTicks
     {
+        GameGrid gameGrid;
+
+        [SetUp]
+        public void Setup()
+        {
+            gameGrid = new GameGrid();
+        }
 
         [Test]
-        public void InitializePacMan()
+        public void PacManMovesOneSquare()
         {
-
+            gameGrid.Tick();
+            Assert.AreEqual((11, 10), gameGrid.GetPacManLocation());
         }
     }
 }

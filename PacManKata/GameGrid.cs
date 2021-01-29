@@ -9,14 +9,17 @@ namespace PacManKata
         {
             Width = 20;
             Height = 20;
+            location = (10, 10);
         }
+
+        private (int, int) location;
 
         public int Width { get; }
         public int Height { get; }
         
         public (int, int) GetPacManLocation()
         {
-            return (10, 10);
+            return location;
         }
 
         public int CalculateRemainingDots()
@@ -27,6 +30,11 @@ namespace PacManKata
         public PacManDirectionEnum WhereIsPacManFacing()
         {
             return PacManDirectionEnum.Right;
+        }
+
+        public void Tick()
+        {
+            location = (11, 10);
         }
     }
 }
