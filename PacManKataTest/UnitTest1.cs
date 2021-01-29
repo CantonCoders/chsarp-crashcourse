@@ -3,20 +3,49 @@ using PacManKata;
 
 namespace PacManKataTest
 {
-    public class Tests
+    public class WhenInitializingTheGame
     {
+        GameGrid gameGrid;
+
         [SetUp]
         public void Setup()
         {
+            gameGrid = new GameGrid();
         }
 
         [Test]
-        public void InitializeGameGrid()
+        public void GameGridInializesTo20By20()
         {
-            var gameGrid = new GameGrid();
-
             Assert.AreEqual(20, gameGrid.Width);
             Assert.AreEqual(20, gameGrid.Height);
+        }
+
+        [Test]
+        public void PacManStartsInTheMiddle()
+        {
+            Assert.AreEqual((10, 10), gameGrid.GetPacManLocation());
+        }
+
+        [Test]
+        public void StartsWith400Dots()
+        {
+            Assert.AreEqual(400, gameGrid.CalculateRemainingDots());
+        }
+
+        [Test]
+        public void PacManFacesRight()
+        {
+            Assert.AreEqual(PacManDirectionEnum.Right, gameGrid.WhereIsPacManFacing());
+        }
+    }
+
+    public class PacManTest
+    {
+
+        [Test]
+        public void InitializePacMan()
+        {
+
         }
     }
 }
