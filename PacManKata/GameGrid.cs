@@ -10,14 +10,17 @@ namespace PacManKata
             Width = 20;
             Height = 20;
             location = (10, 10);
+            PacMan = new PacMan();
         }
 
         private (int, int) location;
         private PacManFacingEnum pacManFacing;
 
+
         public int Width { get; }
         public int Height { get; }
-        
+        public PacMan PacMan { get; }
+
         public (int, int) GetPacManLocation()
         {
             return location;
@@ -37,20 +40,40 @@ namespace PacManKata
         {
             if (pacManFacing == PacManFacingEnum.Right)
             {
-                location.Item1++;
+                MovePacManRight();
             }
             else if (pacManFacing == PacManFacingEnum.Up)
             {
-                location.Item2++;
+                MovePacManUp();
             }
             else if (pacManFacing == PacManFacingEnum.Left)
             {
-                location.Item1--;
+                MovePacManLeft();
             }
             else
             {
-                location.Item2--;
+                MovePacManDown();
             }
+        }
+
+        private void MovePacManDown()
+        {
+            location.Item2--;
+        }
+
+        private void MovePacManLeft()
+        {
+            location.Item1--;
+        }
+
+        private void MovePacManUp()
+        {
+            location.Item2++;
+        }
+
+        private void MovePacManRight()
+        {
+            location.Item1++;
         }
 
         public void ChangePacManFacingTo(PacManFacingEnum newDirection)

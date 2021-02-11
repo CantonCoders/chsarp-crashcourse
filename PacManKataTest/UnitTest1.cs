@@ -50,12 +50,16 @@ namespace PacManKataTest
         }
 
         [Test]
-        public void PacManMovesOneSquare()
+        public void PacManMovesOneSquareInTheDirectionHeIsFacing()
         {
+            gameGrid.PacMan.FacePacmanRight();
+
+            (int, int) startingLocation = gameGrid.GetPacManLocation();
+
             gameGrid.Tick();
-            Assert.AreEqual((11, 10), gameGrid.GetPacManLocation());
+            Assert.AreEqual(startingLocation.Item1 + 1, gameGrid.GetPacManLocation().Item1);
             gameGrid.Tick();
-            Assert.AreEqual((12, 10), gameGrid.GetPacManLocation());
+            Assert.AreEqual(startingLocation.Item1 + 2, gameGrid.GetPacManLocation().Item1);
         }
 
         [Test]
