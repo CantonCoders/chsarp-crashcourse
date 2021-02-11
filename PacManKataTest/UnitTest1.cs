@@ -23,7 +23,7 @@ namespace PacManKataTest
         [Test]
         public void PacManStartsInTheMiddle()
         {
-            Assert.AreEqual((10, 10), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(10, 10), gameGrid.GetPacManLocation());
         }
 
         [Test]
@@ -54,12 +54,10 @@ namespace PacManKataTest
         {
             gameGrid.PacMan.FacePacmanRight();
 
-            (int, int) startingLocation = gameGrid.GetPacManLocation();
-
             gameGrid.Tick();
-            Assert.AreEqual(startingLocation.Item1 + 1, gameGrid.GetPacManLocation().Item1);
+            Assert.AreEqual(new Cell(11,10), gameGrid.GetPacManLocation());
             gameGrid.Tick();
-            Assert.AreEqual(startingLocation.Item1 + 2, gameGrid.GetPacManLocation().Item1);
+            Assert.AreEqual(new Cell(12,10), gameGrid.GetPacManLocation());
         }
 
         [Test]
@@ -69,7 +67,7 @@ namespace PacManKataTest
             Assert.AreEqual(PacManFacingEnum.Up, gameGrid.WhereIsPacManFacing());
 
             gameGrid.Tick();
-            Assert.AreEqual((10, 11), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(10, 11), gameGrid.GetPacManLocation());
         }
 
         [Test]
@@ -79,7 +77,7 @@ namespace PacManKataTest
             Assert.AreEqual(PacManFacingEnum.Left, gameGrid.WhereIsPacManFacing());
 
             gameGrid.Tick();
-            Assert.AreEqual((9, 10), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(9, 10), gameGrid.GetPacManLocation());
         }
 
         [Test]
@@ -89,7 +87,7 @@ namespace PacManKataTest
             Assert.AreEqual(PacManFacingEnum.Down, gameGrid.WhereIsPacManFacing());
 
             gameGrid.Tick();
-            Assert.AreEqual((10, 9), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(10, 9), gameGrid.GetPacManLocation());
         }
 
     }

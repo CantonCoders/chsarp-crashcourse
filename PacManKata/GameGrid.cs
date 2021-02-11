@@ -9,11 +9,11 @@ namespace PacManKata
         {
             Width = 20;
             Height = 20;
-            location = (10, 10);
+            location = new Cell(10, 10);
             PacMan = new PacMan();
         }
 
-        private (int, int) location;
+        private Cell location;
         private PacManFacingEnum pacManFacing;
 
 
@@ -21,7 +21,7 @@ namespace PacManKata
         public int Height { get; }
         public PacMan PacMan { get; }
 
-        public (int, int) GetPacManLocation()
+        public Cell GetPacManLocation()
         {
             return location;
         }
@@ -58,27 +58,56 @@ namespace PacManKata
 
         private void MovePacManDown()
         {
-            location.Item2--;
+            location.Y--;
         }
 
         private void MovePacManLeft()
         {
-            location.Item1--;
+            location.X--;
         }
 
         private void MovePacManUp()
         {
-            location.Item2++;
+            location.Y++;
         }
 
         private void MovePacManRight()
         {
-            location.Item1++;
+            location.X++;
         }
 
         public void ChangePacManFacingTo(PacManFacingEnum newDirection)
         {
             pacManFacing = newDirection;
+        }
+    }
+
+    public class Cell
+    {
+        public Cell(int x, int v2)
+        {
+            X = x;
+            Y = v2;
+        }
+
+        public int X { get; set; }
+        public int Y { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Cell cell &&
+                   X == cell.X &&
+                   Y == cell.Y;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
+
+        public override string ToString()
+        {
+            return $"({X}, {Y})";
         }
     }
 }
