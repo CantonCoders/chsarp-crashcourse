@@ -61,6 +61,17 @@ namespace PacManKataTest
         }
 
         [Test]
+        public void PacManWrapsAroundFromRightSideToLeftSide()
+        {
+            for (int i = 0; i < 11; i++)
+            {
+                gameGrid.Tick();
+            }
+
+            Assert.AreEqual(new Cell(1, 10), gameGrid.GetPacManLocation());
+        }
+
+        [Test]
         public void PacManMovesInUpDirection()
         {
             gameGrid.ChangePacManFacingTo(PacManFacingEnum.Up);

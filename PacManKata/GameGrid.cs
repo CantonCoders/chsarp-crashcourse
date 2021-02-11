@@ -74,6 +74,7 @@ namespace PacManKata
         private void MovePacManRight()
         {
             location.X++;
+            if (location.X > Width) location.X = 1;
         }
 
         public void ChangePacManFacingTo(PacManFacingEnum newDirection)
