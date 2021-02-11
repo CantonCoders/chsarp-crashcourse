@@ -14,8 +14,6 @@ namespace PacManKata
         }
 
         private Cell location;
-        private PacManFacingEnum pacManFacing;
-
 
         public int Width { get; }
         public int Height { get; }
@@ -33,11 +31,12 @@ namespace PacManKata
 
         public PacManFacingEnum WhereIsPacManFacing()
         {
-            return pacManFacing;
+            return PacMan.Facing;
         }
 
         public void Tick()
         {
+            var pacManFacing = WhereIsPacManFacing();
             if (pacManFacing == PacManFacingEnum.Right)
             {
                 MovePacManRight();
@@ -76,19 +75,14 @@ namespace PacManKata
             location.X++;
             if (location.X > Width) location.X = 1;
         }
-
-        public void ChangePacManFacingTo(PacManFacingEnum newDirection)
-        {
-            pacManFacing = newDirection;
-        }
     }
 
     public class Cell
     {
-        public Cell(int x, int v2)
+        public Cell(int x, int y)
         {
             X = x;
-            Y = v2;
+            Y = y;
         }
 
         public int X { get; set; }
