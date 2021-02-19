@@ -1,5 +1,6 @@
 ﻿using PacManKataTest;
 using System;
+using System.Collections.Generic;
 
 namespace PacManKata
 {
@@ -9,11 +10,23 @@ namespace PacManKata
         {
             Width = 20;
             Height = 20;
-            location = new Cell(10, 10);
+            cells = new Cell[Width, Height];
+            for(var x = 0; x < Width; x++)
+            {
+                for (var y = 0; y < Width; y++)
+                {
+                    cells[x, y] = new Cell(x, y);
+                }
+            }
+
+
+            pacmanLocation = new Cell(10, 10);
             PacMan = new PacMan();
         }
 
-        private Cell location;
+        private Cell[,] cells;
+
+        private Cell pacmanLocation;
 
         public int Width { get; }
         public int Height { get; }
@@ -21,7 +34,7 @@ namespace PacManKata
 
         public Cell GetPacManLocation()
         {
-            return location;
+            return pacmanLocation;
         }
 
         public int CalculateRemainingDots()
@@ -57,36 +70,49 @@ namespace PacManKata
 
         private void MovePacManDown()
         {
-            location.Y--;
-            if (location.Y < 1) location.Y = Height;
+            pacmanLocation = pacmanLocation.Down();
+            if (pacmanLocation.Y < 1) pacmanLocation.Y = Height;
         }
 
         private void MovePacManLeft()
         {
-            location.X--;
-            if (location.X < 1) location.X = Width;
+            pacmanLocation = pacmanLocation.Left();
+            if (pacmanLocation.X < 1) pacmanLocation.X = Width;
         }
 
         private void MovePacManUp()
         {
-            location.Y++;
+            pacmanLocation = pacmanLocation.Up();
             if (IsPacmanAboveGridHeight()) WarpPacmanToBottom();
         }
 
         private bool IsPacmanAboveGridHeight()
         {
-            return location.Y > Height;
+            return pacmanLocation.Y > Height;
         }
 
         private void MovePacManRight()
         {
-            location.X++;
-            if (location.X > Width) location.X = 1;
+            pacmanLocation = pacmanLocation.Right();
+            if (pacmanLocation.X > Width) pacmanLocation.X = 1;
         }
 
         private void WarpPacmanToBottom()
         {
-            location.Y = 1;
+            pacmanLocation.Y = 1;
+        }
+
+        public Cell GetCell(int x, int y)
+        {
+            return new Cell(x, y);
+        }
+
+        public IEnumerable<Cell> GetAllCells()
+        {
+            foreach(var car in cells)
+            {
+                yield return car;
+            }
         }
     }
 
@@ -113,9 +139,34 @@ namespace PacManKata
             return HashCode.Combine(X, Y);
         }
 
+        public bool HasDot()
+        {
+            return true;
+        }
+
         public override string ToString()
         {
             return $"({X}, {Y})";
+        }
+
+        public Cell Right()
+        {
+            return new Cell(++X, Y);
+        }
+
+        internal Cell Down()
+        {
+            return new Cell(X, --Y);
+        }
+
+        internal Cell Left()
+        {
+            return new Cell(--X, Y);
+        }
+
+        internal Cell Up()
+        {
+            return new Cell(X, ++Y);
         }
     }
 }
