@@ -83,6 +83,14 @@ namespace PacManKataTest
             Assert.AreEqual(new Cell(10, 20), gameGrid.GetPacManLocation());
         }
 
+        [Test]
+        public void PacManWrapsAroundLeftToRight()
+        {
+            gameGrid.PacMan.FacePacmanLeft();
+            MovePacmanDownOffTheGrid();
+            Assert.AreEqual(new Cell(20, 10), gameGrid.GetPacManLocation());
+        }
+
         private void MovePacmanOffTheGrid()
         {
             for (int i = 0; i < 11; i++)

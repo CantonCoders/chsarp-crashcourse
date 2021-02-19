@@ -64,6 +64,7 @@ namespace PacManKata
         private void MovePacManLeft()
         {
             location.X--;
+            if (location.X < 1) location.X = Width;
         }
 
         private void MovePacManUp()
