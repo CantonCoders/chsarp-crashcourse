@@ -101,5 +101,18 @@ namespace PacManKataTest
             Assert.AreEqual(new Cell(10, 9), gameGrid.GetPacManLocation());
         }
 
+        [Test]
+        public void PacManMovesOneCellThenRightOneCell()
+        {
+            gameGrid.PacMan.FacePacmanDown();
+            gameGrid.Tick();
+            Assert.AreEqual(new Cell(10, 9), gameGrid.GetPacManLocation());
+
+            gameGrid.PacMan.FacePacmanRight();
+            gameGrid.Tick();
+            Assert.AreEqual(new Cell(11, 9), gameGrid.GetPacManLocation());
+
+        }
+
     }
 }

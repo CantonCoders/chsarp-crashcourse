@@ -12,7 +12,7 @@ namespace PacManKataTest
 
         public void FacePacmanRight()
         {
-            
+            Facing = PacManFacingEnum.Right;
         }
 
         public void FacePacmanUp()
