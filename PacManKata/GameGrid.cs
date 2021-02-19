@@ -68,6 +68,7 @@ namespace PacManKata
         private void MovePacManUp()
         {
             location.Y++;
+            if (location.Y > Height) location.Y = 1;
         }
 
         private void MovePacManRight()
