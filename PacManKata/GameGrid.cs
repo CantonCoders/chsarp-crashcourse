@@ -58,6 +58,7 @@ namespace PacManKata
         private void MovePacManDown()
         {
             location.Y--;
+            if (location.Y < 1) location.Y = Height;
         }
 
         private void MovePacManLeft()
@@ -68,13 +69,23 @@ namespace PacManKata
         private void MovePacManUp()
         {
             location.Y++;
-            if (location.Y > Height) location.Y = 1;
+            if (IsPacmanAboveGridHeight()) WarpPacmanToBottom();
+        }
+
+        private bool IsPacmanAboveGridHeight()
+        {
+            return location.Y > Height;
         }
 
         private void MovePacManRight()
         {
             location.X++;
             if (location.X > Width) location.X = 1;
+        }
+
+        private void WarpPacmanToBottom()
+        {
+            location.Y = 1;
         }
     }
 

@@ -63,11 +63,7 @@ namespace PacManKataTest
         [Test]
         public void PacManWrapsAroundFromRightSideToLeftSide()
         {
-            for (int i = 0; i < 11; i++)
-            {
-                gameGrid.Tick();
-            }
-
+            MovePacmanOffTheGrid();
             Assert.AreEqual(new Cell(1, 10), gameGrid.GetPacManLocation());
         }
 
@@ -75,13 +71,32 @@ namespace PacManKataTest
         public void PacManWrapsAroundFromTopToBottom()
         {
             gameGrid.PacMan.FacePacmanUp();
+            MovePacmanOffTheGrid();
+            Assert.AreEqual(new Cell(10, 1), gameGrid.GetPacManLocation());
+        }
 
+        [Test]
+        public void PacManWrapsAroundFromBottomToTop()
+        {
+            gameGrid.PacMan.FacePacmanDown();
+            MovePacmanDownOffTheGrid();
+            Assert.AreEqual(new Cell(10, 20), gameGrid.GetPacManLocation());
+        }
+
+        private void MovePacmanOffTheGrid()
+        {
             for (int i = 0; i < 11; i++)
             {
                 gameGrid.Tick();
             }
+        }
 
-            Assert.AreEqual(new Cell(10, 1), gameGrid.GetPacManLocation());
+        private void MovePacmanDownOffTheGrid()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                gameGrid.Tick();
+            }
         }
 
         [Test]
