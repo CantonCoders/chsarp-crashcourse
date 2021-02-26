@@ -1,45 +1,8 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using PacManKata;
-using System.Linq;
 
 namespace PacManKataTest
 {
-    public class WhenInitializingTheGame
-    {
-        GameGrid gameGrid;
-
-        [SetUp]
-        public void Setup()
-        {
-            gameGrid = new GameGrid();
-        }
-
-        [Test]
-        public void GameGridInializesTo20By20()
-        {
-            Assert.AreEqual(20, gameGrid.Width);
-            Assert.AreEqual(20, gameGrid.Height);
-        }
-
-        [Test]
-        public void PacManStartsInTheMiddle()
-        {
-            Assert.AreEqual(new Cell(10, 10), gameGrid.GetPacManLocation());
-        }
-
-        [Test]
-        public void StartsWith400Dots()
-        {
-            Assert.AreEqual(400, gameGrid.CalculateRemainingDots());
-        }
-
-        [Test]
-        public void PacManFacesRight()
-        {
-            Assert.AreEqual(PacManFacingEnum.Right, gameGrid.WhereIsPacManFacing());
-        }
-    }
-
     public class WhenGameTicks
     {
         GameGrid gameGrid;
@@ -151,26 +114,5 @@ namespace PacManKataTest
 
         }
 
-    }
-
-    public class WhenPacmanEatsDots
-    {
-        GameGrid gameGride;
-
-        [SetUp]
-        public void SetUp()
-        {
-            gameGride = new GameGrid();
-        }
-
-        [Test]
-        public void GameGridIsFilledWithDots()
-        {
-            var cells = gameGride.GetAllCells();
-
-            Assert.AreEqual(400, cells.Count());
-
-            Assert.AreEqual(400, cells.Where(c => c.HasDot()).Count());
-        }
     }
 }
