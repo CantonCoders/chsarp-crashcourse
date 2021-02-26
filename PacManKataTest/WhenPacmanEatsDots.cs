@@ -24,5 +24,13 @@ namespace PacManKataTest
 
             Assert.AreEqual(400, cells.Where(c => c.HasDot()).Count());
         }
+
+        [Test]
+        public void PacmanEatsFirstDot()
+        {
+            gameGride.Tick();
+            Assert.AreEqual(399, gameGride.CalculateRemainingDots());
+            Assert.AreEqual(false, gameGride.GetCell(10, 10).HasDot());
+        }
     }
 }

@@ -24,6 +24,7 @@ namespace PacManKata
             PacMan = new PacMan();
         }
 
+        private int numberOfDots = 400;
         private Cell[,] cells;
 
         private Cell pacmanLocation;
@@ -39,7 +40,7 @@ namespace PacManKata
 
         public int CalculateRemainingDots()
         {
-            return 400;
+            return numberOfDots;
         }
 
         public PacManFacingEnum WhereIsPacManFacing()
@@ -49,6 +50,7 @@ namespace PacManKata
 
         public void Tick()
         {
+            GetCell(10, 10).EatDot();
             var pacManFacing = WhereIsPacManFacing();
             if (pacManFacing == PacManFacingEnum.Right)
             {
@@ -66,6 +68,7 @@ namespace PacManKata
             {
                 MovePacManDown();
             }
+            numberOfDots--;
         }
 
         private void MovePacManDown()
@@ -104,7 +107,7 @@ namespace PacManKata
 
         public Cell GetCell(int x, int y)
         {
-            return new Cell(x, y);
+            return cells[x, y];
         }
 
         public IEnumerable<Cell> GetAllCells()
@@ -118,6 +121,8 @@ namespace PacManKata
 
     public class Cell
     {
+        private bool _hasDot = true;
+
         public Cell(int x, int y)
         {
             X = x;
@@ -141,7 +146,7 @@ namespace PacManKata
 
         public bool HasDot()
         {
-            return true;
+            return _hasDot;
         }
 
         public override string ToString()
@@ -167,6 +172,11 @@ namespace PacManKata
         internal Cell Up()
         {
             return new Cell(X, ++Y);
+        }
+
+        internal void EatDot()
+        {
+            _hasDot = false;
         }
     }
 }
