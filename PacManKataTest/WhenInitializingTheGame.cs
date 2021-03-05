@@ -23,7 +23,7 @@ namespace PacManKataTest
         [Test]
         public void PacManStartsInTheMiddle()
         {
-            Assert.AreEqual(new Cell(10, 10), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(10, 10, gameGrid), gameGrid.GetPacManLocation());
         }
 
         [Test]

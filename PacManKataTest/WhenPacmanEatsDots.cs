@@ -32,5 +32,15 @@ namespace PacManKataTest
             Assert.AreEqual(399, gameGride.CalculateRemainingDots());
             Assert.AreEqual(false, gameGride.GetCell(10, 10).HasDot());
         }
+
+        [Test]
+        public void PacmanEatsTwoDots()
+        {
+            gameGride.Tick();
+            gameGride.Tick();
+            Assert.AreEqual(398, gameGride.CalculateRemainingDots());
+            Assert.AreEqual(false, gameGride.GetCell(10, 10).HasDot());
+            Assert.AreEqual(false, gameGride.GetCell(11, 10).HasDot());
+        }
     }
 }

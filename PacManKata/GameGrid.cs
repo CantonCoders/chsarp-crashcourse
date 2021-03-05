@@ -15,12 +15,12 @@ namespace PacManKata
             {
                 for (var y = 0; y < Width; y++)
                 {
-                    cells[x, y] = new Cell(x, y);
+                    cells[x, y] = new Cell(x, y, this);
                 }
             }
 
 
-            pacmanLocation = new Cell(10, 10);
+            pacmanLocation = GetCell(10, 10);
             PacMan = new PacMan();
         }
 
@@ -50,7 +50,7 @@ namespace PacManKata
 
         public void Tick()
         {
-            GetCell(10, 10).EatDot();
+            this.GetPacManLocation().EatDot();
             var pacManFacing = WhereIsPacManFacing();
             if (pacManFacing == PacManFacingEnum.Right)
             {
@@ -122,11 +122,13 @@ namespace PacManKata
     public class Cell
     {
         private bool _hasDot = true;
+        private GameGrid _gameGrid;
 
-        public Cell(int x, int y)
+        public Cell(int x, int y, GameGrid gameGrid)
         {
             X = x;
             Y = y;
+            _gameGrid = gameGrid;
         }
 
         public int X { get; set; }
@@ -156,22 +158,26 @@ namespace PacManKata
 
         public Cell Right()
         {
-            return new Cell(++X, Y);
+            if ((X + 1) < this._gameGrid.Width)    
+                return _gameGrid.GetCell(X+1, Y);
+            return _gameGrid.GetCell(0,Y);
         }
 
         internal Cell Down()
         {
-            return new Cell(X, --Y);
+            return _gameGrid.GetCell(X, --Y);
         }
 
         internal Cell Left()
         {
-            return new Cell(--X, Y);
+            return _gameGrid.GetCell(--X, Y);
         }
 
         internal Cell Up()
         {
-            return new Cell(X, ++Y);
+            if ((Y+1) < _gameGrid.Height)
+                return _gameGrid.GetCell(X, Y + 1);
+            return _gameGrid.GetCell(X, 0);
         }
 
         internal void EatDot()
