@@ -1,6 +1,7 @@
 ﻿using PacManKataTest;
 using System;
 using System.Collections.Generic;
+using static PacManKata.Monster;
 
 namespace PacManKata
 {
@@ -18,8 +19,9 @@ namespace PacManKata
                     cells[x, y] = new Cell(x, y, this);
                 }
             }
-
-
+            
+            this.Monsters = new Monster[5];
+            this.Monsters[0] = new Monster(this);
             pacmanLocation = GetCell(10, 10);
             PacMan = new PacMan();
         }
@@ -28,6 +30,7 @@ namespace PacManKata
         private Cell[,] cells;
 
         private Cell pacmanLocation;
+        public readonly Monster[] Monsters;
 
         public int Width { get; }
         public int Height { get; }
@@ -47,6 +50,10 @@ namespace PacManKata
         {
             return PacMan.Facing;
         }
+
+      
+
+ 
 
         public void Tick()
         {
@@ -119,70 +126,83 @@ namespace PacManKata
         }
     }
 
-    public class Cell
+    public class Monster
     {
-        private bool _hasDot = true;
         private GameGrid _gameGrid;
-
-        public Cell(int x, int y, GameGrid gameGrid)
+        public Monster(GameGrid gameGrid)
         {
-            X = x;
-            Y = y;
-            _gameGrid = gameGrid;
+            this._gameGrid = gameGrid;
+        }
+        public object Location
+        {
+            get { return this._gameGrid.GetCell(0, 0); }
         }
 
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public override bool Equals(object obj)
+        public class Cell
         {
-            return obj is Cell cell &&
-                   X == cell.X &&
-                   Y == cell.Y;
-        }
+            private bool _hasDot = true;
+            private GameGrid _gameGrid;
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(X, Y);
-        }
+            public Cell(int x, int y, GameGrid gameGrid)
+            {
+                X = x;
+                Y = y;
+                _gameGrid = gameGrid;
+            }
 
-        public bool HasDot()
-        {
-            return _hasDot;
-        }
+            public int X { get; set; }
+            public int Y { get; set; }
 
-        public override string ToString()
-        {
-            return $"({X}, {Y})";
-        }
+            public override bool Equals(object obj)
+            {
+                return obj is Cell cell &&
+                       X == cell.X &&
+                       Y == cell.Y;
+            }
 
-        public Cell Right()
-        {
-            if ((X + 1) < this._gameGrid.Width)    
-                return _gameGrid.GetCell(X+1, Y);
-            return _gameGrid.GetCell(0,Y);
-        }
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(X, Y);
+            }
 
-        internal Cell Down()
-        {
-            return _gameGrid.GetCell(X, --Y);
-        }
+            public bool HasDot()
+            {
+                return _hasDot;
+            }
 
-        internal Cell Left()
-        {
-            return _gameGrid.GetCell(--X, Y);
-        }
+            public override string ToString()
+            {
+                return $"({X}, {Y})";
+            }
 
-        internal Cell Up()
-        {
-            if ((Y+1) < _gameGrid.Height)
-                return _gameGrid.GetCell(X, Y + 1);
-            return _gameGrid.GetCell(X, 0);
-        }
+            public Cell Right()
+            {
+                if ((X + 1) < this._gameGrid.Width)
+                    return _gameGrid.GetCell(X + 1, Y);
+                return _gameGrid.GetCell(0, Y);
+            }
 
-        internal void EatDot()
-        {
-            _hasDot = false;
+            internal Cell Down()
+            {
+                return _gameGrid.GetCell(X, --Y);
+            }
+
+            internal Cell Left()
+            {
+                return _gameGrid.GetCell(--X, Y);
+            }
+
+            internal Cell Up()
+            {
+                if ((Y + 1) < _gameGrid.Height)
+                    return _gameGrid.GetCell(X, Y + 1);
+                return _gameGrid.GetCell(X, 0);
+            }
+
+            internal void EatDot()
+            {
+                _hasDot = false;
+            }
         }
     }
 }

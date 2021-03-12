@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using PacManKata;
+using static PacManKata.Monster;
 
 namespace PacManKataTest
 {

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using PacManKata;
+using static PacManKata.Monster;
 
 namespace PacManKataTest
 {
@@ -37,5 +38,21 @@ namespace PacManKataTest
         {
             Assert.AreEqual(PacManFacingEnum.Right, gameGrid.WhereIsPacManFacing());
         }
+
+
+
+        [Test]
+        public void ThereAre5MonstersToStart()
+        {
+            Assert.AreEqual(5, gameGrid.Monsters.Length);
+        }
+
+        [Test]
+        public void OnFirstTickMonster1AppearsAnyWhereOnBoard()
+        {
+            gameGrid.Tick();
+            Assert.IsNotNull(gameGrid.Monsters[0].Location);
+        }
+
     }
 }
