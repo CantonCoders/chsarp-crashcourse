@@ -26,7 +26,6 @@ namespace PacManKata
             PacMan = new PacMan();
         }
 
-        private int numberOfDots = 400;
         private Cell[,] cells;
 
         private Cell pacmanLocation;
@@ -52,7 +51,7 @@ namespace PacManKata
                     if (cells[x, y].HasDot()) total++;
                 }
             }
-
+         
             return total;
         }
 
@@ -63,10 +62,8 @@ namespace PacManKata
 
         public void Tick()
         {
+            GetPacManLocation().EatDot();
 
-            this.GetPacManLocation().EatDot();
-            //numberOfDots--;
-         
             var pacManFacing = WhereIsPacManFacing();
             if (pacManFacing == PacManFacingEnum.Right)
             {
@@ -147,71 +144,84 @@ namespace PacManKata
             get { return this._gameGrid.GetCell(0, 0); }
         }
 
-        public class Cell
+    }
+
+    public class Cell
+    {
+        private bool _hasDot = true;
+        private bool _isWall;
+        private GameGrid _gameGrid;
+
+        public Cell(int x, int y, GameGrid gameGrid)
         {
-            private bool _hasDot = true;
-            private GameGrid _gameGrid;
+            X = x;
+            Y = y;
+            _gameGrid = gameGrid;
+        }
 
-            public Cell(int x, int y, GameGrid gameGrid)
-            {
-                X = x;
-                Y = y;
-                _gameGrid = gameGrid;
-            }
+        public int X { get; set; }
+        public int Y { get; set; }
 
-            public int X { get; set; }
-            public int Y { get; set; }
+        public override bool Equals(object obj)
+        {
+            return obj is Cell cell &&
+                   X == cell.X &&
+                   Y == cell.Y;
+        }
 
-            public override bool Equals(object obj)
-            {
-                return obj is Cell cell &&
-                       X == cell.X &&
-                       Y == cell.Y;
-            }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
 
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(X, Y);
-            }
+        public bool HasDot()
+        {
+            return _hasDot;
+        }
 
-            public bool HasDot()
-            {
-                return _hasDot;
-            }
+        public override string ToString()
+        {
+            return $"({X}, {Y})";
+        }
 
-            public override string ToString()
-            {
-                return $"({X}, {Y})";
-            }
+        public Cell Right()
+        {
+            if ((X + 1) < this._gameGrid.Width)
+                return _gameGrid.GetCell(X + 1, Y);
+            return _gameGrid.GetCell(0, Y);
+        }
 
-            public Cell Right()
-            {
-                if ((X + 1) < this._gameGrid.Width)
-                    return _gameGrid.GetCell(X + 1, Y);
-                return _gameGrid.GetCell(0, Y);
-            }
+        internal Cell Down()
+        {
+            return _gameGrid.GetCell(X, --Y);
+        }
 
-            internal Cell Down()
-            {
-                return _gameGrid.GetCell(X, --Y);
-            }
+        internal Cell Left()
+        {
+            return _gameGrid.GetCell(--X, Y);
+        }
 
-            internal Cell Left()
-            {
-                return _gameGrid.GetCell(--X, Y);
-            }
+        internal Cell Up()
+        {
+            if ((Y + 1) < _gameGrid.Height)
+                return _gameGrid.GetCell(X, Y + 1);
+            return _gameGrid.GetCell(X, 0);
+        }
 
-            internal Cell Up()
-            {
-                if ((Y + 1) < _gameGrid.Height)
-                    return _gameGrid.GetCell(X, Y + 1);
-                return _gameGrid.GetCell(X, 0);
-            }
+        internal void EatDot()
+        {
+            _hasDot = false;
+        }
 
-            internal void EatDot()
-            {
-                _hasDot = false;
-            }
+        public void ChangeToWall()
+        {
+            _hasDot = false;
+            _isWall = true;
+        }
+
+        public bool isWall()
+        {
+            return _isWall;
         }
     }
 }

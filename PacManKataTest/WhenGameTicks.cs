@@ -4,6 +4,23 @@ using static PacManKata.Monster;
 
 namespace PacManKataTest
 {
+    public class CellMicroTest
+    {
+        [Test]
+        public void CellWallsHaveNoDots()
+        {
+            var cell = new Cell(0, 0, new GameGrid());
+            Assert.AreEqual(true, cell.HasDot());
+            Assert.AreEqual(false, cell.isWall());
+
+            cell.ChangeToWall();
+
+            Assert.AreEqual(false, cell.HasDot());
+            Assert.AreEqual(true, cell.isWall());
+
+        }
+    }
+
     public class WhenGameTicks
     {
         GameGrid gameGrid;

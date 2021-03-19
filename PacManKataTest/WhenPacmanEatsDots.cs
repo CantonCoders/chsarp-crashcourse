@@ -55,7 +55,7 @@ namespace PacManKataTest
             Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
             Assert.AreEqual(false, gameGrid.GetCell(11, 11).HasDot());
 
-            Assert.AreEqual(new Monster.Cell(11, 12, gameGrid), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(11, 12, gameGrid), gameGrid.GetPacManLocation());
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace PacManKataTest
             gameGrid.Tick();
             gameGrid.Tick();
 
-            Assert.AreEqual(new Monster.Cell(11, 9, gameGrid), gameGrid.GetPacManLocation());
+            Assert.AreEqual(new Cell(11, 9, gameGrid), gameGrid.GetPacManLocation());
 
             Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
             Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
