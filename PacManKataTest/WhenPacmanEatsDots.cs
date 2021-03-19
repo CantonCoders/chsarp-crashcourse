@@ -29,7 +29,7 @@ namespace PacManKataTest
         public void PacmanEatsFirstDot()
         {
             gameGrid.Tick();
-            Assert.AreEqual(399, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(399, gameGrid.CalculateRemainingDots());
             Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
         }
 
@@ -38,7 +38,7 @@ namespace PacManKataTest
         {
             gameGrid.Tick();
             gameGrid.Tick();
-            Assert.AreEqual(398, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(398, gameGrid.CalculateRemainingDots());
             Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
             Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
         }
@@ -50,12 +50,32 @@ namespace PacManKataTest
             gameGrid.PacMan.FacePacmanUp();
             gameGrid.Tick();
             gameGrid.Tick();
-            Assert.AreEqual(397, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(397, gameGrid.CalculateRemainingDots());
             Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
             Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
             Assert.AreEqual(false, gameGrid.GetCell(11, 11).HasDot());
 
             Assert.AreEqual(new Monster.Cell(11, 12, gameGrid), gameGrid.GetPacManLocation());
+        }
+
+        [Test]
+        public void PacmanCannotEatCellDotsMoreThanOnce()
+        {
+            gameGrid.Tick();
+            gameGrid.PacMan.FacePacmanUp();
+            gameGrid.Tick();
+            gameGrid.PacMan.FacePacmanDown();
+            gameGrid.Tick();
+            gameGrid.Tick();
+
+            Assert.AreEqual(new Monster.Cell(11, 9, gameGrid), gameGrid.GetPacManLocation());
+
+            Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
+            Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
+            Assert.AreEqual(false, gameGrid.GetCell(11, 11).HasDot());
+
+            Assert.AreEqual(397, gameGrid.CalculateRemainingDots());
+
         }
     }
 }

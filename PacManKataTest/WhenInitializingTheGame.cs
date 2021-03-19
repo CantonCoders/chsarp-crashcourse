@@ -30,7 +30,7 @@ namespace PacManKataTest
         [Test]
         public void StartsWith400Dots()
         {
-            Assert.AreEqual(400, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(400, gameGrid.CalculateRemainingDots());
         }
 
         [Test]

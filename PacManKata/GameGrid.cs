@@ -41,9 +41,19 @@ namespace PacManKata
             return pacmanLocation;
         }
 
-        public int GetRemainingDotTotal()
+        public int CalculateRemainingDots()
         {
-            return numberOfDots;
+            int total = 0;
+
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    if (cells[x, y].HasDot()) total++;
+                }
+            }
+
+            return total;
         }
 
         public PacManFacingEnum WhereIsPacManFacing()
@@ -53,8 +63,9 @@ namespace PacManKata
 
         public void Tick()
         {
+
             this.GetPacManLocation().EatDot();
-            numberOfDots--;
+            //numberOfDots--;
          
             var pacManFacing = WhereIsPacManFacing();
             if (pacManFacing == PacManFacingEnum.Right)
