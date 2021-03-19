@@ -7,18 +7,18 @@ namespace PacManKataTest
 
     public class WhenPacmanEatsDots
     {
-        GameGrid gameGride;
+        GameGrid gameGrid;
 
         [SetUp]
         public void SetUp()
         {
-            gameGride = new GameGrid();
+            gameGrid = new GameGrid();
         }
 
         [Test]
         public void GameGridIsFilledWithDots()
         {
-            var cells = gameGride.GetAllCells();
+            var cells = gameGrid.GetAllCells();
 
             Assert.AreEqual(400, cells.Count());
 
@@ -28,19 +28,34 @@ namespace PacManKataTest
         [Test]
         public void PacmanEatsFirstDot()
         {
-            gameGride.Tick();
-            Assert.AreEqual(399, gameGride.CalculateRemainingDots());
-            Assert.AreEqual(false, gameGride.GetCell(10, 10).HasDot());
+            gameGrid.Tick();
+            Assert.AreEqual(399, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
         }
 
         [Test]
         public void PacmanEatsTwoDots()
         {
-            gameGride.Tick();
-            gameGride.Tick();
-            Assert.AreEqual(398, gameGride.CalculateRemainingDots());
-            Assert.AreEqual(false, gameGride.GetCell(10, 10).HasDot());
-            Assert.AreEqual(false, gameGride.GetCell(11, 10).HasDot());
+            gameGrid.Tick();
+            gameGrid.Tick();
+            Assert.AreEqual(398, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
+            Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
+        }
+
+        [Test]
+        public void PacmanCanChangeFacingAndEatDots()
+        {
+            gameGrid.Tick();
+            gameGrid.PacMan.FacePacmanUp();
+            gameGrid.Tick();
+            gameGrid.Tick();
+            Assert.AreEqual(397, gameGrid.GetRemainingDotTotal());
+            Assert.AreEqual(false, gameGrid.GetCell(10, 10).HasDot());
+            Assert.AreEqual(false, gameGrid.GetCell(11, 10).HasDot());
+            Assert.AreEqual(false, gameGrid.GetCell(11, 11).HasDot());
+
+            Assert.AreEqual(new Monster.Cell(11, 12, gameGrid), gameGrid.GetPacManLocation());
         }
     }
 }
